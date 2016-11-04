@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.feroz.materialdesign.custommenuitem.CustomPrimaryDrawerItem;
 import com.example.feroz.materialdesign.custommenuitem.CustomUrlPrimaryDrawerItem;
 import com.example.feroz.materialdesign.custommenuitem.OverflowMenuDrawerItem;
+import com.example.feroz.materialdesign.dashboard.Dashboard;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -115,7 +116,7 @@ public class MainActivity  extends AppCompatActivity {
                 .build();
         loadBackdrop();
 
-
+getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new Dashboard()).commit();
     }
 
     /**
