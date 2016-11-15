@@ -1,5 +1,8 @@
 package com.example.feroz.materialdesign;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -18,6 +21,7 @@ import com.example.feroz.materialdesign.custommenuitem.CustomPrimaryDrawerItem;
 import com.example.feroz.materialdesign.custommenuitem.CustomUrlPrimaryDrawerItem;
 import com.example.feroz.materialdesign.custommenuitem.OverflowMenuDrawerItem;
 import com.example.feroz.materialdesign.dashboard.Dashboard;
+import com.example.feroz.materialdesign.theme.ThemeFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -38,34 +42,29 @@ public class MainActivity  extends AppCompatActivity {
 
     //save our header or result
     private AccountHeader headerResult = null;
-    private Drawer result = null;
-
+    private static Drawer result = null;
+    private static SharedPreferences sharedpreferences;
     private IProfile profile;
-    private IProfile profile2;
-    private IProfile profile3;
-    private IProfile profile4;
-    private IProfile profile5;
-
+    private static Toolbar toolbar;
+    private static CollapsingToolbarLayout collapsingToolbarLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedpreferences = getSharedPreferences(getResources().getString(R.string.shared_preference_key), Context.MODE_PRIVATE);
 
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.materilize_cyan));
 
 
         // Create a few sample profile
         profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.person_unmarried_grey));
-        profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.person_unmarried_grey)).withIdentifier(2);
-        profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.person_unmarried_grey));
-        profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.person_unmarried_grey)).withIdentifier(4);
-        profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.person_unmarried_grey));
 
         // Create the AccountHeader
         buildHeader(false, savedInstanceState);
@@ -78,25 +77,18 @@ public class MainActivity  extends AppCompatActivity {
 
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_home),
-                        //here we use a customPrimaryDrawerItem we defined in our sample app
-                        //this custom DrawerItem extends the PrimaryDrawerItem so it just overwrites some methods
-                        new OverflowMenuDrawerItem().withName(R.string.app_name).withDescription(R.string.app_name).withMenu(R.menu.fragment_menu).withOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                        }).withIcon(GoogleMaterial.Icon.gmd_filter_center_focus),
-                        new CustomPrimaryDrawerItem().withBackgroundRes(R.color.accent).withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_gamepad),
-                        new PrimaryDrawerItem().withName(R.string.app_name).withDescription("This is a description").withIcon(FontAwesome.Icon.faw_eye),
-                        new CustomUrlPrimaryDrawerItem().withName(R.string.app_name).withDescription(R.string.app_name).withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460"),
-                        new SectionDrawerItem().withName(R.string.app_name),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_cart_plus),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_database).withEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_github),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withSelectedIconColor(Color.RED).withIconTintingEnabled(true).withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_plus).actionBar().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withTag("Bullhorn"),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_question).withEnabled(false)
+                        new PrimaryDrawerItem().withName(R.string.dashboard).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(R.string.theme).withIcon(GoogleMaterial.Icon.gmd_palette).withIdentifier(2),
+                        new SectionDrawerItem().withName(R.string.featurelist),
+                        new SecondaryDrawerItem().withName(R.string.toolbar).withIcon(GoogleMaterial.Icon.gmd_select_all).withIdentifier(3),
+                        new SecondaryDrawerItem().withName(R.string.tab).withIcon(GoogleMaterial.Icon.gmd_tab).withIdentifier(4),
+                        new SecondaryDrawerItem().withName(R.string.fab).withIcon(GoogleMaterial.Icon.gmd_menu).withIdentifier(5),
+                        new SecondaryDrawerItem().withName(R.string.dialog).withSelectedIconColor(Color.RED).withIconTintingEnabled(true).withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_flip_to_front).actionBar().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withTag("Bullhorn").withIdentifier(6),
+                        new SecondaryDrawerItem().withName(R.string.recycleview).withIcon(GoogleMaterial.Icon.gmd_confirmation_number).withIdentifier(7),
+                        new SecondaryDrawerItem().withName(R.string.bottomsheet).withIcon(GoogleMaterial.Icon.gmd_border_bottom).withIdentifier(8),
+                        new SecondaryDrawerItem().withName(R.string.materialscrollbar).withIcon(GoogleMaterial.Icon.gmd_swap_vertical).withIdentifier(9),
+                        new SecondaryDrawerItem().withName(R.string.searchview).withIcon(GoogleMaterial.Icon.gmd_search).withIdentifier(10),
+                        new SecondaryDrawerItem().withName(R.string.materialpicker).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(11)
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
                     @Override
@@ -107,17 +99,33 @@ public class MainActivity  extends AppCompatActivity {
                         //return true if we have consumed the event
                         return true;
                     }
+                }).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                            Intent intent = null;
+                            if (drawerItem.getIdentifier() == 1) {
+                                    gotoDashboard();
+                            }else if(drawerItem.getIdentifier() == 2){
+                                gotoTheme();
+                            }
+                        }
+                        return false;
+
+                    }
                 })
-                .addStickyDrawerItems(
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
-                        new SecondaryDrawerItem().withName(R.string.app_name).withIcon(FontAwesome.Icon.faw_github)
-                )
+                /*.addStickyDrawerItems(
+                        new SecondaryDrawerItem().withName(R.string.logout).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10)
+                )*/
                 .withSavedInstance(savedInstanceState)
                 .build();
         loadBackdrop();
 
-getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new Dashboard()).commit();
+        checkDrawerColorExists();
+
     }
+
+
 
     /**
      * small helper method to reuse the logic to build the AccountHeader
@@ -134,10 +142,7 @@ getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new 
                 .withCompactStyle(compact)
                 .addProfiles(
                         profile,
-                        profile2,
-                        profile3,
-                        profile4,
-                        profile5,
+
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
                         new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_plus).actionBar().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withIdentifier(PROFILE_SETTING),
                         new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
@@ -178,8 +183,8 @@ getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new 
         switch (item.getItemId()) {
             case R.id.menu_1:
                 //update the profile2 and set a new image.
-                profile2.withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
-                headerResult.updateProfileByIdentifier(profile2);
+               /* profile2.withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
+                headerResult.updateProfileByIdentifier(profile2);*/
                 return true;
             case R.id.menu_2:
                 //show the arrow icon
@@ -236,6 +241,40 @@ getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         Glide.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
+        gotoDashboard();
     }
 
+    private void gotoDashboard(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new Dashboard()).commit();
+    }
+    private void gotoTheme(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ThemeFragment()).commit();
+    }
+
+    public static void changeDrawerBackground(String color){
+        result.getSlider().setBackgroundColor(Color.parseColor(color));
+        changeToolBarColor(color);
+        result.openDrawer();
+        if(sharedpreferences !=null) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("theme_color", color);
+            editor.apply();
+            editor.commit();
+        }
+    }
+
+    private static void changeToolBarColor(String color) {
+        toolbar.setBackgroundColor(Color.parseColor(color));
+        collapsingToolbarLayout.setBackgroundColor(Color.parseColor(color));
+        collapsingToolbarLayout.setContentScrimColor(Color.parseColor(color));
+
+    }
+
+    private void checkDrawerColorExists(){
+        if(sharedpreferences !=null){
+            if(!sharedpreferences.getString("theme_color", "").equalsIgnoreCase("") ){
+                result.getSlider().setBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
+            }
+        }
+    }
 }
