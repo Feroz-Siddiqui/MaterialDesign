@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        >
+    <Button
+        android:id="@+id/picker_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intent"
+        />
+
+    <Button
+        android:id="@+id/menu_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu Resource"
+        />
+
+    <Button
+        android:id="@+id/image_picker_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Image Picker"
+        />
+
+    <Button
+        android:id="@+id/bottomsheet_fragment_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BottomSheetFragment"
+        />
+        </LinearLayout>
+</LinearLayout>

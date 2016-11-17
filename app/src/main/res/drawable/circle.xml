@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/circular" android:top="2dp" android:bottom="23dp" android:right="37dp" android:left="37dp">
+        <shape android:shape="oval" >
+            <solid android:color="#888" />
+        </shape>
+    </item>
+    <item >
+        <shape  android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

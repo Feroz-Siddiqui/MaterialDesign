@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_favorites"
+        icon="@mipmap/ic_home_black_24dp"
+        title="Favorites"
+        barColorWhenSelected="@color/mdb_stylish_gray"
+        inActiveColor="#FFFFFF"
+        activeColor="@color/mdb_elegant_dark_black"/>
+    <tab
+        id="@+id/tab_nearby"
+        icon="@mipmap/ic_home_black_24dp"
+        title="Nearby"
+        barColorWhenSelected="@color/mdb_stylish_gray"
+        inActiveColor="#FFFFFF"
+        activeColor="@color/mdb_elegant_dark_black"/>
+    <tab
+        id="@+id/tab_friends"
+        icon="@mipmap/ic_home_black_24dp"
+        title="Friends"
+        barColorWhenSelected="@color/mdb_stylish_gray"
+        inActiveColor="#FFFFFF"
+        activeColor="@color/mdb_elegant_dark_black"/>
+</tabs>

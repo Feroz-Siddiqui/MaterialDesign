@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <Button
+        android:id="@+id/materialTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Material Tab"
+        android:textColor="#f8f9f9"
+        android:background="@drawable/rounded_button_settings"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/theme_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sample Button"
+        android:textColor="#f8f9f9"
+        android:background="@drawable/rounded_button_settings" />
+
+</LinearLayout>

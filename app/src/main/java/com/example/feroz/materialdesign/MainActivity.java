@@ -1,26 +1,25 @@
 package com.example.feroz.materialdesign;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.feroz.materialdesign.custommenuitem.CustomPrimaryDrawerItem;
-import com.example.feroz.materialdesign.custommenuitem.CustomUrlPrimaryDrawerItem;
-import com.example.feroz.materialdesign.custommenuitem.OverflowMenuDrawerItem;
-import com.example.feroz.materialdesign.dashboard.Dashboard;
+import com.example.feroz.materialdesign.bottomsheet.BottomSheet;
+import com.example.feroz.materialdesign.dashboard.NewDashboard;
+import com.example.feroz.materialdesign.dialog.DialogFragment;
+import com.example.feroz.materialdesign.tab.TabFragment;
 import com.example.feroz.materialdesign.theme.ThemeFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -46,7 +45,7 @@ public class MainActivity  extends AppCompatActivity {
     private static SharedPreferences sharedpreferences;
     private IProfile profile;
     private static Toolbar toolbar;
-    private static CollapsingToolbarLayout collapsingToolbarLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +57,13 @@ public class MainActivity  extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(getString(R.string.app_name));
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.materilize_cyan));
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WAKE_LOCK,Manifest.permission.RECEIVE_BOOT_COMPLETED,Manifest.permission.SET_ALARM,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
 
 
         // Create a few sample profile
@@ -108,6 +111,12 @@ public class MainActivity  extends AppCompatActivity {
                                     gotoDashboard();
                             }else if(drawerItem.getIdentifier() == 2){
                                 gotoTheme();
+                            }else if(drawerItem.getIdentifier() == 4){
+                                gotoTab();
+                            }else if(drawerItem.getIdentifier() == 6){
+                                gotoDialog();
+                            }else if(drawerItem.getIdentifier() == 8){
+                                gotoBottomSheet();
                             }
                         }
                         return false;
@@ -119,8 +128,17 @@ public class MainActivity  extends AppCompatActivity {
                 )*/
                 .withSavedInstance(savedInstanceState)
                 .build();
-        loadBackdrop();
-
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+        if(extras.getString("bottomsheet") != null && extras.getString("bottomsheet").equalsIgnoreCase("bottomsheet")){
+            gotoBottomSheet();
+            result.setSelection(8);
+        }else {
+            gotoDashboard();
+        }
+        }else {
+            gotoDashboard();
+        }
         checkDrawerColorExists();
 
     }
@@ -238,19 +256,26 @@ public class MainActivity  extends AppCompatActivity {
         }
     }
 
-    private void loadBackdrop() {
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
-        gotoDashboard();
-    }
+
 
     private void gotoDashboard(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new Dashboard()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new NewDashboard()).commit();
     }
     private void gotoTheme(){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ThemeFragment()).commit();
     }
 
+    private void gotoTab(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TabFragment()).commit();
+    }
+
+    private void gotoBottomSheet(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new BottomSheet()).commit();
+    }
+
+    private void gotoDialog(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new DialogFragment()).commit();
+    }
     public static void changeDrawerBackground(String color){
         result.getSlider().setBackgroundColor(Color.parseColor(color));
         changeToolBarColor(color);
@@ -265,8 +290,6 @@ public class MainActivity  extends AppCompatActivity {
 
     private static void changeToolBarColor(String color) {
         toolbar.setBackgroundColor(Color.parseColor(color));
-        collapsingToolbarLayout.setBackgroundColor(Color.parseColor(color));
-        collapsingToolbarLayout.setContentScrimColor(Color.parseColor(color));
 
     }
 
@@ -274,7 +297,27 @@ public class MainActivity  extends AppCompatActivity {
         if(sharedpreferences !=null){
             if(!sharedpreferences.getString("theme_color", "").equalsIgnoreCase("") ){
                 result.getSlider().setBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
+                toolbar.setBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
+
             }
         }
     }
+
+    public static void openDrawer(){
+        if(result != null){
+            result.openDrawer();
+        }
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
