@@ -99,5 +99,33 @@
         <item>Facebook is an online social networking service headquartered in Menlo Park, California. Its website was launched on February 4, 2004, by Mark Zuckerberg with friends.</item>
     </string-array>
     <string name="example_prompt">Example check prompt</string>
-
+    <string name="add_item">Add Item</string>
+    <string name="clear_selection">Clear</string>
+    <string name="selection_limit_reached">Selection limit reached!</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="add_account">Add account</string>
+    <string name="set_backup">Set backup account</string>
+    <string name="custom_listitem_button">A button!</string>
+    <string name="googleWifi">Google Wifi</string>
+    <string name="connect">Connect</string>
+    <string name="password">Password</string>
+    <string name="showPassword">Show password</string>
+    <string name="signalStrength">Signal strength</string>
+    <string name="excellent">Excellent</string>
+    <string name="ssid">SSID</string>
+    <string name="ssidLit">Material Dialogs</string>
+    <string name="security">Security</string>
+    <string name="securityType">802.1x EAP</string>
+    <string name="changelog">Changelog</string>
+    <string name="color_palette">Color Palette</string>
+    <string name="colors">Colors</string>
+    <string name="input">Input</string>
+    <string name="input_custominvalidation">Input (Custom Invalidation)</string>
+    <string name="input_hint">John Appleseed</string>
+    <string name="input_content">What\'s your name?</string>
+    <string name="submit">Submit</string>
+    <string name="input_content_custominvalidation">Do not type hello, or else!</string>
+    <string name="progress_dialog">Progress Dialog</string>
+    <string name="please_wait">Please wait…</string>
+    //
 </resources>

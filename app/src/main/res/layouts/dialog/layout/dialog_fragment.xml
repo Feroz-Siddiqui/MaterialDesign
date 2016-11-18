@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:columnWidth="110dp"
         android:gravity="center"
-        android:numColumns="auto_fit" />
+        android:numColumns="2" />
 
 
 </RelativeLayout>

@@ -35,18 +35,18 @@ public class DialogGridViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public ThemeObject getItem(int i) {
+        return themeObjectArrayList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        View gridViewAndroid;
+        final View gridViewAndroid;
         final int position = i;
         final ViewGroup parents = parent;
         LayoutInflater inflater = (LayoutInflater) mContext
@@ -54,23 +54,22 @@ public class DialogGridViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            gridViewAndroid = new View(mContext);
             gridViewAndroid = inflater.inflate(R.layout.dialog_grid_view_item, null);
-            final Button button =  (Button)gridViewAndroid.findViewById(R.id.button);
-            button.setText(themeObjectArrayList.get(i).getColor());
-            GradientDrawable shapeDrawable =(GradientDrawable) mContext.getResources().getDrawable(R.drawable.corner_button);
-            shapeDrawable.setColor(Color.parseColor(themeObjectArrayList.get(i).getHashcode()));
-            button.setBackground(shapeDrawable);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("ddddddd");
-                    ((GridView)parents).performItemClick(view,position,0) ;               }
-            });
+
         } else {
             gridViewAndroid = (View) convertView;
         }
-
+        final Button button =  (Button)gridViewAndroid.findViewById(R.id.button);
+        button.setText(themeObjectArrayList.get(i).getColor());
+        GradientDrawable shapeDrawable =(GradientDrawable) mContext.getResources().getDrawable(R.drawable.corner_button);
+        shapeDrawable.setColor(Color.parseColor(themeObjectArrayList.get(i).getHashcode()));
+        button.setBackground(shapeDrawable);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("ddddddd");
+                ((GridView)parents).performItemClick(view,position,0) ;               }
+        });
         return gridViewAndroid;
     }
 }
