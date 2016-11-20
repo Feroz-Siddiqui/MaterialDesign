@@ -19,7 +19,9 @@ import android.view.View;
 import com.example.feroz.materialdesign.bottomsheet.BottomSheet;
 import com.example.feroz.materialdesign.dashboard.NewDashboard;
 import com.example.feroz.materialdesign.dialog.DialogFragment;
+import com.example.feroz.materialdesign.fab.FabFragment;
 import com.example.feroz.materialdesign.tab.TabFragment;
+import com.example.feroz.materialdesign.textviews.TextViewFragment;
 import com.example.feroz.materialdesign.theme.ThemeFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -91,8 +93,10 @@ public class MainActivity  extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.bottomsheet).withIcon(GoogleMaterial.Icon.gmd_border_bottom).withIdentifier(8),
                         new SecondaryDrawerItem().withName(R.string.materialscrollbar).withIcon(GoogleMaterial.Icon.gmd_swap_vertical).withIdentifier(9),
                         new SecondaryDrawerItem().withName(R.string.searchview).withIcon(GoogleMaterial.Icon.gmd_search).withIdentifier(10),
-                        new SecondaryDrawerItem().withName(R.string.materialpicker).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(11)
-                ) // add the items we want to use with our Drawer
+                        new SecondaryDrawerItem().withName(R.string.materialpicker).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(11),
+                        new SecondaryDrawerItem().withName(R.string.textview).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(12)
+
+        ) // add the items we want to use with our Drawer
                 .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
                     @Override
                     public boolean onNavigationClickListener(View clickedView) {
@@ -113,10 +117,14 @@ public class MainActivity  extends AppCompatActivity {
                                 gotoTheme();
                             }else if(drawerItem.getIdentifier() == 4){
                                 gotoTab();
+                            }else if(drawerItem.getIdentifier() == 5){
+                                gotoFab();
                             }else if(drawerItem.getIdentifier() == 6){
                                 gotoDialog();
                             }else if(drawerItem.getIdentifier() == 8){
                                 gotoBottomSheet();
+                            }else if(drawerItem.getIdentifier() == 12){
+                                gotoTextFragment();
                             }
                         }
                         return false;
@@ -268,11 +276,18 @@ public class MainActivity  extends AppCompatActivity {
     private void gotoTab(){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TabFragment()).commit();
     }
-
+    //
+    private void gotoFab(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FabFragment()).commit();
+    }
     private void gotoBottomSheet(){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new BottomSheet()).commit();
     }
 
+    private void gotoTextFragment(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TextViewFragment()).commit();
+    }
+    //
     private void gotoDialog(){
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new DialogFragment()).commit();
     }

@@ -30,6 +30,9 @@ android {
                             'src/main/res/layouts/tab/',
                             'src/main/res/layouts/bottomsheet/',
                             'src/main/res/layouts/dialog/',
+                            'src/main/res/layouts/textviews/',
+
+                            'src/main/res/layouts/fab/',
                             'src/main/res/layouts',
                             'src/main/res'
                     ]
@@ -58,5 +61,6 @@ dependencies {
     compile 'com.flipboard:bottomsheet-core:1.5.2'
     compile 'com.flipboard:bottomsheet-commons:1.5.2' // optional
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
+    compile 'com.github.clans:fab:1.6.4'
 
 }
