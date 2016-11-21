@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -56,6 +58,7 @@ public class MainActivity  extends AppCompatActivity {
 
         // Handle Toolbar
         toolbar= (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
 
@@ -149,6 +152,10 @@ public class MainActivity  extends AppCompatActivity {
         }
         checkDrawerColorExists();
 
+
+
+
+
     }
 
 
@@ -200,6 +207,12 @@ public class MainActivity  extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        Drawable yourdrawable = menu.findItem(R.id.action_settings).getIcon(); // change 0 with 1,2 ...
+        yourdrawable.mutate();
+        yourdrawable.setColorFilter(getResources().getColor(R.color.md_white_1000), PorterDuff.Mode.SRC_IN);
+
+
+
         return true;
     }
 

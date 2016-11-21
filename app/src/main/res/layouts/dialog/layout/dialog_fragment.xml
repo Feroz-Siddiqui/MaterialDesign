@@ -10,6 +10,8 @@
         android:layout_height="match_parent"
         android:columnWidth="110dp"
         android:gravity="center"
+        android:animateLayoutChanges="true"
+
         android:numColumns="2" />
 
 

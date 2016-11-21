@@ -18,6 +18,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.GridLayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -103,6 +106,9 @@ public class DialogFragment extends Fragment {
         androidGridView=(GridView)view.findViewById(R.id.grid_view_image_text);
         dialogGridViewAdapter = new DialogGridViewAdapter(getContext(),themeObjectArrayList);
         androidGridView.setAdapter(dialogGridViewAdapter);
+        Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.grid_item_anim);
+        GridLayoutAnimationController controller = new GridLayoutAnimationController(animation, .2f, .2f);
+        androidGridView.setLayoutAnimation(controller);
 
         androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
