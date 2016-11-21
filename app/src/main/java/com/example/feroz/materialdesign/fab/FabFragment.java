@@ -3,6 +3,7 @@ package com.example.feroz.materialdesign.fab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.feroz.materialdesign.R;
+import com.example.feroz.materialdesign.dashboard.NewDashboard;
 import com.example.feroz.materialdesign.fab.adapter.FabGridAdapter;
 import com.example.feroz.materialdesign.theme.pojo.ThemeObject;
 
@@ -58,5 +60,25 @@ public class FabFragment extends Fragment {
             default:
                 break;
         }
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new NewDashboard()).commit();
+                return true;
+                }
+                return false;
+            }
+        });
     }
 }

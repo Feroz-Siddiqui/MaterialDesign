@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,8 @@ public class FabHomeFragment extends Fragment {
         final FloatingActionButton programFab1 = new FloatingActionButton(getActivity());
         programFab1.setButtonSize(FloatingActionButton.SIZE_MINI);
         programFab1.setLabelText(getString(R.string.lorem_ipsum));
-        programFab1.setImageResource(R.drawable.ic_action_new);
+
+        programFab1.setImageResource(R.mipmap.ic_create_black_24dp);
         menuRed.addMenuButton(programFab1);
         programFab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +86,7 @@ public class FabHomeFragment extends Fragment {
         ContextThemeWrapper context = new ContextThemeWrapper(getActivity(), R.style.MenuButtonsStyle);
         FloatingActionButton programFab2 = new FloatingActionButton(context);
         programFab2.setLabelText("Programmatically added button");
-        programFab2.setImageResource(R.drawable.ic_action_refresh);
+        programFab2.setImageResource(R.mipmap.ic_add_black_24dp);
         menuYellow.addMenuButton(programFab2);
 
         fab1.setEnabled(false);
@@ -182,7 +184,7 @@ public class FabHomeFragment extends Fragment {
             @Override
             public void onAnimationStart(Animator animation) {
                 menuGreen.getMenuIconView().setImageResource(menuGreen.isOpened()
-                        ? R.mipmap.ic_play_arrow_black_24dp : R.mipmap.ic_launcher);
+                        ? R.mipmap.ic_play_arrow_black_24dp : R.mipmap.ic_create_black_24dp);
             }
         });
 
@@ -208,4 +210,22 @@ public class FabHomeFragment extends Fragment {
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FabFragment()).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

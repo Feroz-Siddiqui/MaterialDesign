@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,5 +140,25 @@ public class RevealFab extends Fragment {
 
     public static RevealFab newInstance () {
         return new RevealFab();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FabFragment()).commit();
+                    return true;
+
+                }
+                return false;
+            }
+        });
     }
 }

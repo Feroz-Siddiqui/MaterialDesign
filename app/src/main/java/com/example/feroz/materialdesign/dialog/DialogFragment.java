@@ -14,6 +14,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.example.feroz.materialdesign.MainActivity;
 import com.example.feroz.materialdesign.R;
+import com.example.feroz.materialdesign.dashboard.NewDashboard;
 import com.example.feroz.materialdesign.dialog.adapter.ButtonItemAdapter;
 import com.example.feroz.materialdesign.dialog.adapter.DialogGridViewAdapter;
 import com.example.feroz.materialdesign.theme.pojo.ThemeObject;
@@ -806,5 +808,23 @@ public class DialogFragment extends Fragment {
     }
 
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new NewDashboard()).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
 }

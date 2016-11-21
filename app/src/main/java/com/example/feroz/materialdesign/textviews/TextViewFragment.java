@@ -11,12 +11,14 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.AlignmentSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.feroz.materialdesign.R;
+import com.example.feroz.materialdesign.dashboard.NewDashboard;
 import com.example.feroz.materialdesign.textviews.util.BulletListBuilder;
 import com.example.feroz.materialdesign.textviews.util.MyClickableSpan;
 
@@ -95,5 +97,30 @@ public class TextViewFragment extends Fragment {
                 .getColor(R.color.colorAccent)), 0, spannable.length()-2, 0);
         sb.append(spannable);
         return sb;
+    }
+
+
+
+
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new NewDashboard()).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

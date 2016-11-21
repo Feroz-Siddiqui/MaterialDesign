@@ -5,18 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.feroz.materialdesign.R;
-import com.example.feroz.materialdesign.dashboard.adapter.RecyclerViewAdapter;
-import com.example.feroz.materialdesign.dashboard.pojo.ItemObject;
+import com.example.feroz.materialdesign.dashboard.NewDashboard;
 import com.example.feroz.materialdesign.theme.adapter.ThemeRecyclerViewAdapter;
 import com.example.feroz.materialdesign.theme.pojo.ThemeObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Feroz on 15/11/2016.
@@ -46,5 +45,21 @@ public class ThemeFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new NewDashboard()).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 }

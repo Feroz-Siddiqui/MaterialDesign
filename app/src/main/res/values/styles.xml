@@ -52,6 +52,7 @@
         <item name="fab_colorNormal">#1565C0</item>
         <item name="fab_colorPressed">#2272CD</item>
         <item name="fab_colorRipple">#62B2FF</item>
+        <item name="android:tint">#ffffff</item>
     </style>
 
     <style name="MenuButtonsSmall.Green">
@@ -65,6 +66,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:tint">#ffffff</item>
     </style>
 
 </resources>
