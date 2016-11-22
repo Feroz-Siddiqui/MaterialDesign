@@ -9,6 +9,10 @@
     <string name="tab">Material Tab</string>
     <string name="fab">FAB</string>
     <string name="textview">TextView</string>
+    <string name="email">Email</string>
+    <string name="user_unique_id">User_Unique_id</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 
     <string name="dialog">Dialogs</string>
     <string name="recycleview">Recycler View</string>

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tab.activity.ViewPagerTabActivity">
+    tools:context="feroz.materialdesign.tab.activity.ViewPagerTabActivity">
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"

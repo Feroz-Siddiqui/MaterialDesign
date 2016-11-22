@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "81435712988",
+    "firebase_url": "https://locationservice-5cfde.firebaseio.com",
+    "project_id": "locationservice-5cfde",
+    "storage_bucket": "locationservice-5cfde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81435712988:android:5d3df7d21d04f4d1",
+        "android_client_info": {
+          "package_name": "feroz.materialdesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81435712988-ollkkaf3muhlm92c63hh5rtj8qfu95a7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNRR38X34F-5JrFgZalt8ybUjxlQ380lI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

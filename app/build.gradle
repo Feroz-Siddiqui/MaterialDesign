@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.example.feroz.materialdesign"
+        applicationId "feroz.materialdesign"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -31,6 +31,7 @@ android {
                             'src/main/res/layouts/bottomsheet/',
                             'src/main/res/layouts/dialog/',
                             'src/main/res/layouts/textviews/',
+                            'src/main/res/layouts/map/',
 
                             'src/main/res/layouts/fab/',
                             'src/main/res/layouts',
@@ -41,6 +42,7 @@ android {
 
 
 }
+apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -62,5 +64,9 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.firebase:firebase-core:9.8.0'
+    compile 'com.google.firebase:firebase-database:9.8.0'
+
 
 }
