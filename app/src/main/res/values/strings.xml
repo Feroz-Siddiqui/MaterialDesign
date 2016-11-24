@@ -13,6 +13,7 @@
     <string name="user_unique_id">User_Unique_id</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="start_app">Starting application: %s</string>
 
     <string name="dialog">Dialogs</string>
     <string name="recycleview">Recycler View</string>

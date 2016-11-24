@@ -13,12 +13,18 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.feroz.materialdesign.R;
+import com.luseen.spacenavigation.SpaceItem;
+import com.luseen.spacenavigation.SpaceNavigationView;
+import com.luseen.spacenavigation.SpaceOnClickListener;
+import com.luseen.spacenavigation.SpaceOnLongClickListener;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -52,13 +58,48 @@ public class MainActivity  extends AppCompatActivity {
     private static SharedPreferences sharedpreferences;
     private IProfile profile;
     private static Toolbar toolbar;
-
+    private static SpaceNavigationView spaceNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedpreferences = getSharedPreferences(getResources().getString(R.string.shared_preference_key), Context.MODE_PRIVATE);
+        spaceNavigationView = (SpaceNavigationView) findViewById(R.id.space);
+        spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
+        spaceNavigationView.addSpaceItem(new SpaceItem("HOME", R.mipmap.ic_add_black_24dp));
+        spaceNavigationView.addSpaceItem(new SpaceItem("SEARCH", R.mipmap.ic_clear_black_24dp));
+        spaceNavigationView.shouldShowFullBadgeText(true);
+        spaceNavigationView.setCentreButtonIconColorFilterEnabled(false);
+        spaceNavigationView.setInActiveSpaceItemColor(getResources().getColor(R.color.md_black_1000));
+        spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
+            @Override
+            public void onCentreButtonClick() {
+                Log.d("onCentreButtonClick ", "onCentreButtonClick");
+                spaceNavigationView.shouldShowFullBadgeText(true);
+            }
 
+            @Override
+            public void onItemClick(int itemIndex, String itemName) {
+                Log.d("onItemClick ", "" + itemIndex + " " + itemName);
+            }
+
+            @Override
+            public void onItemReselected(int itemIndex, String itemName) {
+                Log.d("onItemReselected ", "" + itemIndex + " " + itemName);
+            }
+        });
+
+        spaceNavigationView.setSpaceOnLongClickListener(new SpaceOnLongClickListener() {
+            @Override
+            public void onCentreButtonLongClick() {
+                Toast.makeText(MainActivity.this, "onCentreButtonLongClick", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(int itemIndex, String itemName) {
+                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Handle Toolbar
         toolbar= (Toolbar) findViewById(R.id.toolbar);
@@ -330,7 +371,7 @@ public class MainActivity  extends AppCompatActivity {
 
     private static void changeToolBarColor(String color) {
         toolbar.setBackgroundColor(Color.parseColor(color));
-
+        spaceNavigationView.changeSpaceBackgroundColor(Color.parseColor(color));
     }
 
     private void checkDrawerColorExists(){
@@ -338,6 +379,7 @@ public class MainActivity  extends AppCompatActivity {
             if(!sharedpreferences.getString("theme_color", "").equalsIgnoreCase("") ){
                 result.getSlider().setBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
                 toolbar.setBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
+                spaceNavigationView.setSpaceBackgroundColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
 
             }
         }
