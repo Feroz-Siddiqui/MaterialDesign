@@ -11,7 +11,8 @@
         android:columnWidth="110dp"
         android:gravity="center"
         android:animateLayoutChanges="true"
-
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
         android:numColumns="2" />
 
 

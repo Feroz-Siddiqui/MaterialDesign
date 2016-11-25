@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.feroz.materialdesign.R;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rey.material.widget.ProgressView;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -33,7 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signin;
     private ImageButton user_profile_photo;
     private  SharedPreferences sharedpreferences;
-
+    private ProgressView progressView;
+    private RelativeLayout main_layout;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
@@ -55,10 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
                 .error(R.mipmap.ic_clear_black_24dp)
                 .fit()
                 .into(user_profile_photo);
+        progressView = (ProgressView) findViewById(R.id.progress);
+        main_layout = (RelativeLayout) findViewById(R.id.main_layout) ;
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressView.setVisibility(View.VISIBLE);
+                main_layout.setVisibility(View.GONE);
                 if(email.getText() != null && !email.getText().toString().trim().equalsIgnoreCase("") && isValidEmail(email.getText()) ) {
                     if(password.getText() != null && !password.getText().toString().trim().equalsIgnoreCase("")) {
                         if(first_name.getText() != null && !first_name.getText().toString().trim().equalsIgnoreCase("")) {
@@ -68,23 +75,32 @@ public class RegisterActivity extends AppCompatActivity {
                                 } else {
                                     mobile.setError("Please enter 10 digit mobile to proceed");
                                     mobile.requestFocus();
+                                    progressView.setVisibility(View.GONE);
+                                    main_layout.setVisibility(View.VISIBLE);
                                 }
                             }else{
                                 last_name.setError("Please Enter your First Name");
                                 last_name.requestFocus();
+                                progressView.setVisibility(View.GONE);
+                                main_layout.setVisibility(View.VISIBLE);
                             }
                         }else{
                             first_name.setError("Please Enter your First Name");
                             first_name.requestFocus();
+                            progressView.setVisibility(View.GONE);
+                            main_layout.setVisibility(View.VISIBLE);
                         }
                     }else{
                         password.setError("Please enter password to proceed");
                         password.requestFocus();
+                        progressView.setVisibility(View.GONE);
+                        main_layout.setVisibility(View.VISIBLE);
                     }
                 }else {
                     email.setError("Please enter a valid email");
                     email.requestFocus();
-
+                    progressView.setVisibility(View.GONE);
+                    main_layout.setVisibility(View.VISIBLE);
                 }
                 }
         });
@@ -138,6 +154,8 @@ public class RegisterActivity extends AppCompatActivity {
                             Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                             startActivity(i);
                         }
+                        progressView.setVisibility(View.GONE);
+                        main_layout.setVisibility(View.VISIBLE);
 
                         // ...
                     }

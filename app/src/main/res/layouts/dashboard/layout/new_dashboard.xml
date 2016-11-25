@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="feroz.materialdesign.MainActivity" >
 
     <com.szugyi.circlemenu.view.CircleLayout
         android:id="@+id/circle_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/selected_textView"
-        android:layout_gravity="center_horizontal" >
-
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp">
         <include layout="@layout/menu_items" />
     </com.szugyi.circlemenu.view.CircleLayout>
 
@@ -20,9 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/circle_layout"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

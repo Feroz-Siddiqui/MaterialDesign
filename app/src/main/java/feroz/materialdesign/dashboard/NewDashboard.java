@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.feroz.materialdesign.R;
-import com.luseen.spacenavigation.SpaceItem;
-import com.luseen.spacenavigation.SpaceNavigationView;
-import com.luseen.spacenavigation.SpaceOnClickListener;
-import com.luseen.spacenavigation.SpaceOnLongClickListener;
 import com.szugyi.circlemenu.view.CircleImageView;
 import com.szugyi.circlemenu.view.CircleLayout;
 import com.szugyi.circlemenu.view.CircleLayout.OnCenterClickListener;
@@ -53,7 +50,15 @@ public class NewDashboard extends Fragment implements OnItemSelectedListener,
         circleLayout.setOnItemClickListener(this);
         circleLayout.setOnRotationFinishedListener(this);
         circleLayout.setOnCenterClickListener(this);
-
+        if(sharedpreferences !=null) {
+            if (!sharedpreferences.getString("theme_color", "").equalsIgnoreCase("")) {
+                GradientDrawable shapeDrawable =(GradientDrawable) getResources().getDrawable(R.drawable.new_circle);
+                shapeDrawable.setColor(Color.parseColor(sharedpreferences.getString("theme_color", "")));
+                for(int i =0; i<circleLayout.getChildCount();i++){
+                            circleLayout.getChildAt(i).setBackground(shapeDrawable);
+                        }
+            }
+        }
         selectedTextView = (TextView) view.findViewById(R.id.selected_textView);
         /* dashboard_image = (ImageView) view.findViewById(R.id.dashboard_image);
         Picasso.with(getActivity())

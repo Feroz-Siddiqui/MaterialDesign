@@ -103,9 +103,16 @@ public class MainActivity  extends AppCompatActivity {
 
         // Handle Toolbar
         toolbar= (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
 
+
+        Drawable overflowIcon = toolbar.getOverflowIcon();
+
+        if (overflowIcon != null) {
+            Drawable newIcon = overflowIcon.mutate();
+            newIcon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
+            toolbar.setOverflowIcon(newIcon);
+        }
 
         int PERMISSION_ALL = 1;
         String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WAKE_LOCK,Manifest.permission.RECEIVE_BOOT_COMPLETED,Manifest.permission.SET_ALARM,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
@@ -204,9 +211,6 @@ public class MainActivity  extends AppCompatActivity {
             gotoDashboard();
         }
         checkDrawerColorExists();
-
-
-
 
 
     }
@@ -360,7 +364,6 @@ public class MainActivity  extends AppCompatActivity {
     public static void changeDrawerBackground(String color){
         result.getSlider().setBackgroundColor(Color.parseColor(color));
         changeToolBarColor(color);
-        result.openDrawer();
         if(sharedpreferences !=null) {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("theme_color", color);

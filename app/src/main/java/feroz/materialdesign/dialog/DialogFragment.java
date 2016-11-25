@@ -39,14 +39,15 @@ import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import feroz.materialdesign.MainActivity;
 import com.example.feroz.materialdesign.R;
+
+import java.util.ArrayList;
+
+import feroz.materialdesign.MainActivity;
 import feroz.materialdesign.dashboard.NewDashboard;
 import feroz.materialdesign.dialog.adapter.ButtonItemAdapter;
 import feroz.materialdesign.dialog.adapter.DialogGridViewAdapter;
 import feroz.materialdesign.theme.pojo.ThemeObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by Feroz on 17/11/2016.
