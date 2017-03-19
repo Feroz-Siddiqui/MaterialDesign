@@ -41,6 +41,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import feroz.materialdesign.bottomsheet.BottomSheet;
+import feroz.materialdesign.collaspsetoolbar.recycleview.RecycleviewWithToolBar;
 import feroz.materialdesign.dashboard.NewDashboard;
 import feroz.materialdesign.dialog.DialogFragment;
 import feroz.materialdesign.fab.FabFragment;
@@ -157,9 +158,11 @@ public class MainActivity  extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.materialscrollbar).withIcon(GoogleMaterial.Icon.gmd_swap_vertical).withIdentifier(9),
                         new SecondaryDrawerItem().withName(R.string.searchview).withIcon(GoogleMaterial.Icon.gmd_search).withIdentifier(10),
                         new SecondaryDrawerItem().withName(R.string.materialpicker).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(11),
-                        new SecondaryDrawerItem().withName(R.string.textview).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(12)
+                        new SecondaryDrawerItem().withName(R.string.textview).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(12),
+                        new SecondaryDrawerItem().withName(R.string.collaspingtoolbar).withIcon(FontAwesome.Icon.faw_calendar_check_o).withIdentifier(13)
 
-        ) // add the items we want to use with our Drawer
+
+                        ) // add the items we want to use with our Drawer
                 .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
                     @Override
                     public boolean onNavigationClickListener(View clickedView) {
@@ -188,6 +191,9 @@ public class MainActivity  extends AppCompatActivity {
                                 gotoBottomSheet();
                             }else if(drawerItem.getIdentifier() == 12){
                                 gotoTextFragment();
+                            }else if(drawerItem.getIdentifier() == 13){
+                                Intent intent1 = new Intent(MainActivity.this, RecycleviewWithToolBar.class);
+                                startActivity(intent1);
                             }
                         }
                         return false;
